@@ -19,21 +19,20 @@ function _Profile(props: { user: any; }) {
                 </Col>
             </Row>
             <Row>
-                <Col className="my-auto">
-                    <Image src={props.user.photoURL} className="img img-thumbnail" style={{ width: '100%', height: 500 }}/>
-                </Col>
-                <Col className="my-auto">
+                <Col>
+                    <div style={{ marginBottom: 30}} className="text-center">
+                        <Image src={props.user.photoURL} className="img img-fluid" style={{ width: '40%', height: '40%' }}/>
+                    </div>
                     <h1>{props.user.displayName}</h1>
                     <h1>{props.user.email}</h1>
-                    {props.user.phoneNumber ? <h1>Phone Number: ✅</h1> : <h1>Phone number: ❌</h1>}
+                    {props.user.phoneNumber ? <h1>Phone Verified: ✅</h1> : <h1>Phone Verified: ❌</h1>}
                     {props.user.emailVerified ? <h1>Email Verified: ✅</h1> : <VerifyEmail/> }
                     <Button onClick={Logout} style={{ backgroundColor: "#6c63ff" }}>Logout</Button>
                 </Col>
-            </Row>
-            <Row style={{ marginTop: 50}}>
                 <Col>
                     <div className="text-center">
-                        <h1>Your latest uploads and information here.</h1>
+                        <h1>Your Summaries</h1>
+                        <p>Here is some of your finest work</p>
                     </div>
                 </Col>
             </Row>
