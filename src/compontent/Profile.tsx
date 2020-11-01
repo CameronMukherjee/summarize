@@ -16,7 +16,6 @@ function _Profile(props: { user: any; }) {
             <Row>
                 <Col className="text-center" style={{ marginBottom: 50}}>
                     <h1>Your Profile</h1>
-                    <Button onClick={Logout} style={{ backgroundColor: "#6c63ff" }}>Logout</Button>
                 </Col>
             </Row>
             <Row>
@@ -28,6 +27,7 @@ function _Profile(props: { user: any; }) {
                     <h1>{props.user.email}</h1>
                     {props.user.phoneNumber ? <h1>Phone Number: ✅</h1> : <h1>Phone number: ❌</h1>}
                     {props.user.emailVerified ? <h1>Email Verified: ✅</h1> : <VerifyEmail/> }
+                    <Button onClick={Logout} style={{ backgroundColor: "#6c63ff" }}>Logout</Button>
                 </Col>
             </Row>
             <Row style={{ marginTop: 50}}>
