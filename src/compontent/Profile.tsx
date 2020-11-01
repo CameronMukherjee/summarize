@@ -57,7 +57,6 @@ function VerifyEmail() {
             )
         }
     }
-
     return (
         <Button onClick={sendEmail} className="mr-sm-3" style={{ backgroundColor: "#6c63ff" }}>Send verification email</Button>
     )
