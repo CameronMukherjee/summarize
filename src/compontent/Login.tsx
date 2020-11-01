@@ -74,7 +74,15 @@ function LoginView() {
                         : 
                         null 
                         }
-                        
+                        <div className="text-center">
+                            { formType === "Login" && 
+                            <p><br/><Button style={{ backgroundColor: "#6c63ff" }} onClick={() => setForm("Register")}>Dont have an account? Register Now</Button></p>
+                            }
+                            { formType === "Register" &&
+                            <p><br/><Button style={{ backgroundColor: "#6c63ff" }} onClick={() => setForm("Login")}>Already have an account? Login Instead</Button></p>
+                            }
+                            
+                        </div>
                     </div>
                     <Form onSubmit={handleForm}>
                         <Form.Group controlId="formBasicEmail">
@@ -103,30 +111,21 @@ function LoginView() {
                                 onChange={(e) => setPassword(e.target.value)}
                             />
                         </Form.Group>
-                        <div className="text-center">
-                            { formType === "Login" && 
-                            <p>Dont have an account? <br/><Button onClick={() => setForm("Register")}>Register Now</Button></p>
-                            }
-                            { formType === "Register" &&
-                            <p>Already have an account? <br/><Button onClick={() => setForm("Login")}>Login Instead</Button></p>
-                            }
-                            
-                        </div>
                         <div className="text-right">
-                            
+                        <SignInWithGoogle />
                             <Button variant="primary" type="submit" style={{ backgroundColor: "#6c63ff" }}>
                                 { formType }
                             </Button>
                         </div>
                     </Form>
-                    <div className="text-center">
+                    {/* <div className="text-center">
                         <h4>or</h4>
-                    </div>
+                    </div> */}
                     <div className="text-center" style={{ marginTop: 50 }}>
-                        <SignInWithGoogle />
-                        <Button className="mr-sm-2" style={{ backgroundColor: "#6c63ff" }}>Login with Twitter</Button>
-                        <br /><br />
-                        <Button className="mr-sm-2" style={{ backgroundColor: "#6c63ff" }}>Login with Facebook</Button>
+                        {/* <SignInWithGoogle /> */}
+                        {/* <Button className="mr-sm-2" style={{ backgroundColor: "#6c63ff" }}>Login with Twitter</Button> */}
+                        {/* <br /><br /> */}
+                        {/* <Button className="mr-sm-2" style={{ backgroundColor: "#6c63ff" }}>Login with Facebook</Button> */}
                     </div>
                 </Col>
                 <Col className="my-auto">
