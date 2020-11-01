@@ -1,8 +1,11 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
+// eslint-disable-next-line import/no-unassigned-import
 import './index.css';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
+// eslint-disable-next-line import/no-unassigned-import
+import 'bootstrap/dist/css/bootstrap.min.css';
 
 ReactDOM.render(
   <React.StrictMode>
