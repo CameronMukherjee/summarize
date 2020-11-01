@@ -1,7 +1,7 @@
 import React from 'react';
 import { Container, Row, Col, Image } from 'react-bootstrap';
 
-function _Home() {
+function _Home(props: { user: any; }) {
     return (
         <Container className="fluid">
             <Row>

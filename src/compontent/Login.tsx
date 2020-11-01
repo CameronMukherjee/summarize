@@ -1,18 +1,92 @@
-import React from 'react';
-import { Container, Row, Col, Image, Form, Button } from 'react-bootstrap';
+import React, { useState } from 'react';
+import { Redirect } from 'react-router-dom';
+import { Container, Row, Col, Image, Form, Button, Alert } from 'react-bootstrap';
 
-function _Login() {
+import firebase from 'firebase/app';
+// eslint-disable-next-line import/no-unassigned-import
+import 'firebase/auth';
+
+function _Login(props: { user: any; }) {
+    if (props.user) {
+        return (
+            <Redirect to="/profile" />
+        )
+    } else {
+        return (
+            <LoginView/>
+        )
+    }
+}
+
+function LoginView() {
+    const [formType, setForm] = useState("Login");
+    const [email, setEmail] = useState("");
+    const [password, setPassword] = useState("");
+    const [error, setError] = useState("");
+    let printError = false;
+
+    const handleForm = (e: React.FormEvent) => {
+        if (formType === "Login") {
+            e.preventDefault();
+
+            const auth = firebase.auth();
+            auth.signInWithEmailAndPassword(email, password)
+                .then(r => {
+                    console.log(r)
+                })
+                .catch(err => {
+                    setError(err.message);
+                    console.log(err)
+                })
+        } else if (formType === "Register") {
+            e.preventDefault();
+
+            const auth = firebase.auth();
+            auth.createUserWithEmailAndPassword(email, password)
+                .then(r => {
+                    console.log(r)
+                })
+                .catch(err => {
+                    setError(err.message);
+                    console.log(err);
+                })
+        } else {
+            setError("An unknown error has occured.")
+        }
+    }
+
+    if (error !== "") {
+        printError = true;
+    }
+
+
     return (
         <Container className="fluid">
             <Row>
-                <Col>
+                <Col className="my-auto">
                     <div className="text-center">
-                        <h1>Login</h1>
+                        <h1>{ formType }</h1>
+                        { 
+                        printError ? 
+                        <Alert variant="danger">
+                            { error }
+                        </Alert>
+                        : 
+                        null 
+                        }
+                        
                     </div>
-                    <Form>
+                    <Form onSubmit={handleForm}>
                         <Form.Group controlId="formBasicEmail">
                             <Form.Label>Email address</Form.Label>
-                            <Form.Control type="email" placeholder="Enter email" />
+                            {/* <Form.Control type="email" placeholder="Enter email" name="email" /> */}
+                            <input
+                                className="form form-control"
+                                type="email"
+                                id="email"
+                                value={email}
+                                onChange={(e) => setEmail(e.target.value)}
+                            />
                             <Form.Text className="text-muted">
                                 We'll never share your email with anyone else.
                             </Form.Text>
@@ -20,21 +94,64 @@ function _Login() {
 
                         <Form.Group controlId="formBasicPassword">
                             <Form.Label>Password</Form.Label>
-                            <Form.Control type="password" placeholder="Password" />
+                            {/* <Form.Control type="password" placeholder="Password" name="password" /> */}
+                            <input
+                                className="form form-control"
+                                type="password"
+                                id="password"
+                                value={password}
+                                onChange={(e) => setPassword(e.target.value)}
+                            />
                         </Form.Group>
+                        <div className="text-center">
+                            { formType === "Login" && 
+                            <p>Dont have an account? <br/><Button onClick={() => setForm("Register")}>Register Now</Button></p>
+                            }
+                            { formType === "Register" &&
+                            <p>Already have an account? <br/><Button onClick={() => setForm("Login")}>Login Instead</Button></p>
+                            }
+                            
+                        </div>
                         <div className="text-right">
-                            <Button variant="primary" type="submit">
-                                Submit
+                            
+                            <Button variant="primary" type="submit" style={{ backgroundColor: "#6c63ff" }}>
+                                { formType }
                             </Button>
                         </div>
                     </Form>
+                    <div className="text-center">
+                        <h4>or</h4>
+                    </div>
+                    <div className="text-center" style={{ marginTop: 50 }}>
+                        <SignInWithGoogle />
+                        <Button className="mr-sm-2" style={{ backgroundColor: "#6c63ff" }}>Login with Twitter</Button>
+                        <br /><br />
+                        <Button className="mr-sm-2" style={{ backgroundColor: "#6c63ff" }}>Login with Facebook</Button>
+                    </div>
                 </Col>
-                <Col>
+                <Col className="my-auto">
                     <Image src='./bookshelves.svg' className="img img-fluid"></Image>
                 </Col>
             </Row>
         </Container>
-    );
+    )
+}
+
+function SignInWithGoogle() {
+    const auth = firebase.auth();
+    const signInWithGoogle = () => {
+        const provider = new firebase.auth.GoogleAuthProvider();
+        auth.signInWithPopup(provider)
+            .then(r => {
+                console.log(r)
+                return (<Redirect to={"feed"} />)
+            })
+            .catch(e => console.log(e))
+    }
+
+    return (
+        <Button onClick={signInWithGoogle} className="mr-sm-2" style={{ backgroundColor: "#6c63ff" }}>Login with Google</Button>
+    )
 }
 
 export default _Login;
