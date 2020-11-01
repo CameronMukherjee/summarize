@@ -33,6 +33,13 @@ const firestore = firebase.firestore();
 
 function App() {
   const [user] = useAuthState(auth);
+  const [query, setQuery] = useState("");
+
+  const handleForm = (e: React.FormEvent) => {
+    e.preventDefault();
+    // TODO: Add search query here
+  }
+
   return (
     <Router>
 
@@ -42,8 +49,16 @@ function App() {
             <Navbar.Collapse id="basic-navbar-nav">
                 <Nav className="mr-auto">
                 <Form inline>
-                    <FormControl type="text" placeholder="1984 - George Orwell" className="mr-sm-2" />
-                    <Button variant="outline-success" className="mr-sm-2">Find Summary</Button>
+                    <input
+                      className="form form-control mr-sm-2"
+                      type="email"
+                      id="email"
+                      value={query}
+                      placeholder="1984 - George Orwell"
+                      onChange={(e) => setQuery(e.target.value)}
+                    />
+                    {/* <FormControl type="text" placeholder="1984 - George Orwell" className="mr-sm-2" /> */}
+                    <Button type="submit" variant="outline-success" className="mr-sm-2">Find Summary</Button>
                 </Form>
                 </Nav>
                 <Link to="/feed" className="theme1 mr-sm-3"><FontAwesomeIcon icon={ faAddressBook } size={"2x"}></FontAwesomeIcon></Link>

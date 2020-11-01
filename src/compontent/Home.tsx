@@ -10,7 +10,7 @@ function _Home(props: { user: any; }) {
                         Summarize
                     </h1>
                     <h3 className="text-center">
-                        your favourite books in 2500 words
+                        your reading list in 2500 words
                     </h3>
                     <small>
                         Cameron Mukherjee
