@@ -43,7 +43,7 @@ function App() {
                 <Nav className="mr-auto">
                 <Form inline>
                     <FormControl type="text" placeholder="1984 - George Orwell" className="mr-sm-2" />
-                    <Button variant="outline-success" className="mr-sm-2">Search for a summary</Button>
+                    <Button variant="outline-success" className="mr-sm-2">Find Summary</Button>
                 </Form>
                 </Nav>
                 <Link to="/feed" className="theme1 mr-sm-3"><FontAwesomeIcon icon={ faAddressBook } size={"2x"}></FontAwesomeIcon></Link>
