@@ -57,7 +57,7 @@ function _Feed(props: { user: any; }) {
 }
 
 function Summary(props: { key: any, message: any}) {
-    const { content, uid, bookID, bookTitle, displayName, photoURL } = props.message;
+    const { content, uid, bookID, bookTitle, displayName, photoURL, createdAt } = props.message;
     // FIXME: Created at crashing application.
 
     return (
