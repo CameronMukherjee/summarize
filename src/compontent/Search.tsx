@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import axios from 'axios';
 import { Container, Row, Col, Image, Button, Form, FormGroup, FormLabel } from 'react-bootstrap';
+import { Link, Redirect } from 'react-router-dom';
 
 const apiKey = "AIzaSyAXOm3FiT8ogS_9ybmX-GipTb8ODE0_LcU";
 
@@ -39,13 +40,15 @@ function _Search(props: { user: any; }) {
                     {formSent ?
                         result.map(book => (
                             <Row style={{ marginBottom: 20 }}>
-                                <Col className="col col-md-2 my-auto" style={{ paddingRight: 10}}>
-                                    <Image src={book.volumeInfo.imageLinks.thumbnail}></Image>
-                                </Col>
-                                <Col className="col col-md-10 my-auto">
+                                <Col className="my-auto">
                                     <h4>{book.volumeInfo.title}</h4>
+                                    {/* <h4>Publisher: {book.volumeInfo.publisher} - ({book.volumeInfo.publishedDate})</h4>
+                                    <h5>Average Rating: {book.volumeInfo.averageRating}</h5> */}
                                     <p>{book.volumeInfo.description}</p>
                                     <div className="text-right">
+                                        <a href={book.volumeInfo.previewLink} target="_blank">
+                                            <Button style={{ backgroundColor: "#6c63ff" }} className="mr-sm-2">Preview</Button>
+                                        </a>
                                         <Button style={{ backgroundColor: "#6c63ff" }} className="mr-sm-2">View Summaries</Button>
                                         <Button style={{ backgroundColor: "#6c63ff" }}>Write Summary</Button>
                                     </div>
