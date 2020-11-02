@@ -99,7 +99,7 @@ function _Search(props: { user: any; }) {
                                 <Form.Label>
                                     Title
                             </Form.Label>
-                            <div style={{ marginLeft: 250, marginRight: 250}}>
+                            <div>
                                 <input
                                     className="form form-control text-center"
                                     type="text"

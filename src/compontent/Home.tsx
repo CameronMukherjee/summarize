@@ -19,8 +19,8 @@ function _Home(props: { user: any; }) {
                         Cameron Mukherjee
                     </small>
                 </Col>
-                <Col className="my-auto">
-                    <Image src="./book-lover.svg" className="img img-fluid"></Image>
+                <Col className="my-auto d-none d-lg-block">
+                    <Image src="./book-lover.svg" className="img img-fluid" />
                 </Col>
             </Row>
         </Container>
