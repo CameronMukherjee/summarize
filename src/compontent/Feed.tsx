@@ -65,6 +65,7 @@ function Summary(props: { key: any, message: any}) {
         <Row>
             <Col>
                 <h2>{bookTitle}</h2>
+                <h6>By: {displayName}</h6>
                 <p>
                     {content}
                 </p>
@@ -72,12 +73,7 @@ function Summary(props: { key: any, message: any}) {
                     <Col className="col col-sm-1 my-auto">
                         <a href={uid}><Image src={photoURL} style={{ height: 60 }} className="mr-sm-5" roundedCircle/></a>
                     </Col>
-                    <Col className="col col-sm-5 my-auto">
-                        <div>
-                            <h6>{displayName}</h6>
-                        </div>
-                    </Col>
-                    <Col className="col col-sm-6 my-auto">
+                    <Col className="col col-sm-11 my-auto">
                         <div className="text-right">
                             <Button style={{ backgroundColor: "#6c63ff" }} className="mr-sm-1">Like</Button>
                             <Button style={{ backgroundColor: "#6c63ff" }} >Comment</Button>
