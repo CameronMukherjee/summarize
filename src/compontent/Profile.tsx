@@ -8,25 +8,25 @@ import 'firebase/auth';
 
 function _Profile(props: { user: any; }) {
     if (!props.user) {
-        return ( <Redirect to="/login" /> )
+        return (<Redirect to="/login" />)
     }
 
     return (
         <Container>
             <Row>
-                <Col className="text-center" style={{ marginBottom: 50}}>
+                <Col className="text-center" style={{ marginBottom: 50 }}>
                     <h1>Your Profile</h1>
                 </Col>
             </Row>
             <Row>
                 <Col>
-                    <div style={{ marginBottom: 30}} className="text-center">
-                        <Image src={props.user.photoURL} className="img img-fluid" style={{ width: '40%', height: '40%' }}/>
+                    <div style={{ marginBottom: 30 }} className="text-center">
+                        <Image src={props.user.photoURL} className="img img-fluid" style={{ width: '40%', height: '40%' }} />
                     </div>
                     <h1>{props.user.displayName}</h1>
                     <h1>{props.user.email}</h1>
                     {props.user.phoneNumber ? <h1>Phone Verified: ✅</h1> : <h1>Phone Verified: ❌</h1>}
-                    {props.user.emailVerified ? <h1>Email Verified: ✅</h1> : <VerifyEmail/> }
+                    {props.user.emailVerified ? <h1>Email Verified: ✅</h1> : <VerifyEmail />}
                     <Button onClick={Logout} style={{ backgroundColor: "#6c63ff" }}>Logout</Button>
                 </Col>
                 <Col>
@@ -67,7 +67,7 @@ function Logout() {
     auth.signOut()
         .then(r => {
             console.log(r)
-            return ( <Redirect to="/" />)
+            return (<Redirect to="/" />)
         })
         .catch(e => {
             console.log(e)

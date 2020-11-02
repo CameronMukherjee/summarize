@@ -1,6 +1,6 @@
 {
-  "short_name": "React App",
-  "name": "Create React App Sample",
+  "short_name": "Summarize",
+  "name": "Summarize your reading list in 2500 words",
   "icons": [
     {
       "src": "favicon.ico",
