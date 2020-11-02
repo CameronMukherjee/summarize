@@ -102,7 +102,10 @@ function _Profile(props: { user: any; }) {
                                         Email Verified
                                     </Form.Label>
                                     <br/>
-                                    {props.user.emailVerified ? <h4>Email Verified: ✅</h4> : <Button onClick={SendEmailVerification} style={{ backgroundColor: "#6c63ff", marginLeft: 250, marginRight: 250 }}>Send verification email</Button>}
+                                    {props.user.emailVerified ?
+                                    <h4>Email Verified: ✅</h4> 
+                                    : 
+                                    <Button onClick={SendEmailVerification} style={{ backgroundColor: "#6c63ff"}}>Send verification email</Button>}
                                 </Form.Group>
                                 <hr/>
                             {/* <h4>{props.user.displayName}</h4> */}
