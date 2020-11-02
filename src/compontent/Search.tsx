@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import axios from 'axios';
-import { Container, Row, Col, Image, Button, Form, FormGroup, FormLabel } from 'react-bootstrap';
+import { Container, Row, Col, Image, Button, Form, FormGroup, FormLabel, Modal } from 'react-bootstrap';
 import { Link, Redirect } from 'react-router-dom';
 
 const apiKey = "AIzaSyAXOm3FiT8ogS_9ybmX-GipTb8ODE0_LcU";
@@ -9,6 +9,12 @@ function _Search(props: { user: any; }) {
     const [formSent, setFormSent] = useState(false);
     const [title, setTitle] = useState("");
     const [result, setResult] = useState<any[]>([]);
+
+    const [show, setShow] = useState(false);
+    const [bookId, setBookId] = useState("");
+    const [bookTitle, setBookTitle] = useState("");
+    const [content, setContent] = useState("");
+    const handleClose = () => setShow(false);
 
     const handleForm = (e: React.FormEvent) => {
         // const url = `https://www.googleapis.com/books/v1/volumes?q=${title}+inauthor:${author}+inpublisher:${publisher}+isbn:${isbn}&key=${apiKey}`
@@ -31,7 +37,7 @@ function _Search(props: { user: any; }) {
                 <Col style={{ marginBottom: 30 }}>
                     <div className="text-center">
                         <h1>Search for a book</h1>
-                        { formSent &&  <Button style={{ backgroundColor: "#6c63ff" }} className="mr-sm-2" onClick={() => setFormSent(false)}>Search again?</Button> }
+                        {formSent && <Button style={{ backgroundColor: "#6c63ff" }} className="mr-sm-2" onClick={() => setFormSent(false)}>Search again?</Button>}
                     </div>
                 </Col>
             </Row>
@@ -42,16 +48,15 @@ function _Search(props: { user: any; }) {
                             <Row style={{ marginBottom: 20 }}>
                                 <Col className="my-auto">
                                     <h4>{book.volumeInfo.title}</h4>
-                                    {/* <h4>Publisher: {book.volumeInfo.publisher} - ({book.volumeInfo.publishedDate})</h4>
-                                    <h5>Average Rating: {book.volumeInfo.averageRating}</h5> */}
                                     <p>{book.volumeInfo.description}</p>
                                     <div className="text-right">
                                         <a href={book.volumeInfo.previewLink} target="_blank">
                                             <Button style={{ backgroundColor: "#6c63ff" }} className="mr-sm-2">Preview</Button>
                                         </a>
                                         <Button style={{ backgroundColor: "#6c63ff" }} className="mr-sm-2">View Summaries</Button>
-                                        <Button style={{ backgroundColor: "#6c63ff" }}>Write Summary</Button>
+                                        <Button style={{ backgroundColor: "#6c63ff" }} onClick={() => {setBookId(book.id); setShow(true); setBookTitle(book.volumeInfo.title)}}>Write Summary</Button>
                                     </div>
+                                    <hr />
                                 </Col>
                             </Row>
                         ))
@@ -76,6 +81,31 @@ function _Search(props: { user: any; }) {
                     }
                 </Col>
             </Row>
+            <Modal show={show} onHide={handleClose} size="lg" centered>
+                <Modal.Header closeButton>
+                    <Modal.Title className="text-center"><h4>Your {bookTitle} Summary:</h4></Modal.Title>
+                </Modal.Header>
+                <Modal.Body>
+                    <Form>
+                        <Form.Group>
+                            <Form.Label>
+                                Your summary:
+                            </Form.Label>
+                            <textarea
+                                className="form form-control"
+                                value={content}
+                                maxLength={2500}
+                                rows={20}
+                                onChange={(e) => setContent(e.target.value)}
+                            />
+                        </Form.Group>
+                    </Form>
+                </Modal.Body>
+                <Modal.Footer>
+                    <Button variant="secondary" onClick={handleClose}>Close</Button>
+                    <Button style={{ backgroundColor: "#6c63ff" }} onClick={handleClose}>Upload Summary</Button>
+                </Modal.Footer>
+            </Modal>
         </Container>
     );
 }
