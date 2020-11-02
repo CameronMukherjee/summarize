@@ -61,7 +61,6 @@ function LoginView() {
         printError = true;
     }
 
-
     return (
         <Container className="fluid">
             <Row>
@@ -69,12 +68,10 @@ function LoginView() {
                     <div className="text-center">
                         <h1>{formType}</h1>
                         {
-                            printError ?
+                            printError &&
                                 <Alert variant="danger">
                                     {error}
                                 </Alert>
-                                :
-                                null
                         }
                         <div className="text-center">
                             {formType === "Login" &&
@@ -83,7 +80,6 @@ function LoginView() {
                             {formType === "Register" &&
                                 <Button style={{ backgroundColor: "#6c63ff" }} onClick={() => setForm("Login")}>Already have an account? Login Instead</Button>
                             }
-
                         </div>
                     </div>
                     <Form onSubmit={handleForm}>
