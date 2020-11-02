@@ -26,15 +26,11 @@ function _Feed(props: { user: any; }) {
                     <Row>
                         <Col>
                             <div className="text-center">
+                                <Image src={props.user.photoURL} roundedCircle />
+                                <h4>{props.user.displayName}</h4>
+                                <h6>{props.user.email}</h6> 
                                 <Link to="/search"><Button style={{width: "100%", marginBottom: 10, backgroundColor: "#6c63ff"}}>Write Summary Now ✍️</Button></Link>
-                                <Image src={props.user.photoURL} className="img img-fluid" style={{ height: "100%", width: "100%" }} />
                             </div>
-                        </Col>
-                    </Row>
-                    <Row style={{ marginTop: 20 }}>
-                        <Col>
-                            <h4>{props.user.displayName}</h4>
-                            <h6>{props.user.email}</h6>
                         </Col>
                     </Row>
                 </Col>
@@ -67,7 +63,7 @@ function Summary(props: { key: any, message: any}) {
                             <h6>{displayName}</h6>
                         </div>
                     </Col>
-                    <Col className="col col-sm-6">
+                    <Col className="col col-sm-6 my-auto">
                         <div className="text-right">
                             <Button style={{ backgroundColor: "#6c63ff" }} className="mr-sm-1">Like</Button>
                             <Button style={{ backgroundColor: "#6c63ff" }} >Comment</Button>

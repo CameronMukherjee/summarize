@@ -61,7 +61,7 @@ function _Profile(props: { user: any; }) {
                         <h2>Profile Updated! 🎉</h2>
                     </Alert>
                     }
-                    <Row style={{ marginTop: 50 }}>
+                    <Row style={{ marginTop: 40 }}>
                         <Col>
                             <div style={{ marginBottom: 20 }}>
                                 <Image src={props.user.photoURL} roundedCircle />
