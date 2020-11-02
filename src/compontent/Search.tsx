@@ -30,21 +30,28 @@ function _Search(props: { user: any; }) {
                 <Col style={{ marginBottom: 30 }}>
                     <div className="text-center">
                         <h1>Search for a book</h1>
+                        { formSent &&  <Button style={{ backgroundColor: "#6c63ff" }} className="mr-sm-2" onClick={() => setFormSent(false)}>Search again?</Button> }
                     </div>
                 </Col>
             </Row>
             <Row>
-                {formSent &&
-                    <Col className="col col-md-4">
-                        {/* Filters */}
-                        <div className="text-center">
-                            <Button>FILTER LIST</Button>
-                        </div>
-                    </Col>
-                }
                 <Col className="col">
                     {formSent ?
-                        null
+                        result.map(book => (
+                            <Row style={{ marginBottom: 20 }}>
+                                <Col className="col col-md-2 my-auto" style={{ paddingRight: 10}}>
+                                    <Image src={book.volumeInfo.imageLinks.thumbnail}></Image>
+                                </Col>
+                                <Col className="col col-md-10 my-auto">
+                                    <h4>{book.volumeInfo.title}</h4>
+                                    <p>{book.volumeInfo.description}</p>
+                                    <div className="text-right">
+                                        <Button style={{ backgroundColor: "#6c63ff" }} className="mr-sm-2">View Summaries</Button>
+                                        <Button style={{ backgroundColor: "#6c63ff" }}>Write Summary</Button>
+                                    </div>
+                                </Col>
+                            </Row>
+                        ))
                         :
                         <Form onSubmit={handleForm}>
                             <Form.Group>
@@ -64,18 +71,6 @@ function _Search(props: { user: any; }) {
                             </Form.Group>
                         </Form>
                     }
-                    {result.map(book => (
-                        // {console.log(book.volumeInfo.title)}
-                        <Row>
-                            <Col className="col col-md-3 my-auto" style={{ paddingRight: 10}}>
-                                <Image src={book.volumeInfo.imageLinks.thumbnail}></Image>
-                            </Col>
-                            <Col className="my-auto">
-                                <h4>{book.volumeInfo.title}</h4>
-                                <p>{book.volumeInfo.description}</p>
-                            </Col>
-                        </Row>
-                    ))}
                 </Col>
             </Row>
         </Container>
