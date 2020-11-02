@@ -25,37 +25,11 @@ function _Feed(props: { user: any; }) {
                         <Col>
                             <h4>{props.user.displayName}</h4>
                             <h6>{props.user.email}</h6>
+                            <h6>Total summaries on system: 0</h6>
                         </Col>
                     </Row>
                 </Col>
                 <Col className="col col-md-8">
-                    {/* <h3>Create a new summary:</h3>
-                    <Form>
-                        <Form.Group>
-                            <Form.Label>
-                                Book Name
-                            </Form.Label>
-                            <input
-                                className="form form-control"
-                                type="text"
-                                id="bookTitle"
-                                value={bookTitle}
-                                // onChange={(e) => setEmail(e.target.value)}
-                            />
-                            <Form.Label>
-                                Your Summary
-                            </Form.Label>
-                            <textarea 
-                            className="form form-control"
-                            id="summary"
-                            value={summaryBody}
-                            maxLength={2500} />
-                            <div className="text-right" style={{ marginTop: 10 }}>
-                                <Button type="submit" style={{ backgroundColor: "#6c63ff" }}>Upload Summary</Button>
-                            </div>
-                            <hr/>
-                        </Form.Group>
-                    </Form> */}
                     <Summary />
                 </Col>
             </Row>
