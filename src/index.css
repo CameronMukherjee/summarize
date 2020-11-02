@@ -1,7 +1,17 @@
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@300&family=Playfair+Display:wght@500&display=swap');
+
 .theme1 {
     color: rgb(108, 99, 255);
 }
 
 .theme1-btn {
     background-color: rgb(108, 99, 255) !important;
+}
+
+h1, h2, h3, h4, h5 {
+    font-family: 'Playfair Display', serif;
+}
+
+p, small {
+    font-family: 'Montserrat', sans-serif;
 }
