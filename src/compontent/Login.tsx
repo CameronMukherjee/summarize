@@ -78,10 +78,10 @@ function LoginView() {
                         }
                         <div className="text-center">
                             {formType === "Login" &&
-                                <p><br /><Button style={{ backgroundColor: "#6c63ff" }} onClick={() => setForm("Register")}>Dont have an account? Register Now</Button></p>
+                                <Button style={{ backgroundColor: "#6c63ff" }} onClick={() => setForm("Register")}>Dont have an account? Register Now</Button>
                             }
                             {formType === "Register" &&
-                                <p><br /><Button style={{ backgroundColor: "#6c63ff" }} onClick={() => setForm("Login")}>Already have an account? Login Instead</Button></p>
+                                <Button style={{ backgroundColor: "#6c63ff" }} onClick={() => setForm("Login")}>Already have an account? Login Instead</Button>
                             }
 
                         </div>
