@@ -1,7 +1,9 @@
 import React, { useState } from 'react';
 import axios from 'axios';
-import { Container, Row, Col, Image, Button, Form, FormGroup, FormLabel, Modal } from 'react-bootstrap';
+import { Container, Row, Col, Image, Button, Form, FormGroup, FormLabel, Modal, Alert } from 'react-bootstrap';
 import { Link, Redirect } from 'react-router-dom';
+
+import firebase from 'firebase/app';
 
 const apiKey = "AIzaSyAXOm3FiT8ogS_9ybmX-GipTb8ODE0_LcU";
 
@@ -16,7 +18,9 @@ function _Search(props: { user: any; }) {
     const [content, setContent] = useState("");
     const handleClose = () => setShow(false);
 
-    const handleForm = (e: React.FormEvent) => {
+    const [success, setSuccess] = useState(false);
+
+    const handleSearch = (e: React.FormEvent) => {
         // const url = `https://www.googleapis.com/books/v1/volumes?q=${title}+inauthor:${author}+inpublisher:${publisher}+isbn:${isbn}&key=${apiKey}`
         const url = `https://www.googleapis.com/books/v1/volumes?q=${title}&key=${apiKey}&naxResults=20`
         e.preventDefault()
@@ -25,6 +29,28 @@ function _Search(props: { user: any; }) {
                 console.log(data.data.items)
                 setResult(data.data.items)
                 setFormSent(true);
+            })
+            .catch(err => {
+                console.log(err)
+            })
+    }
+
+    const handleUpload = (e: React.FormEvent) => {
+        e.preventDefault()
+        const firestore = firebase.firestore()
+        firestore
+            .collection('summary')
+            .add({
+                uid: props.user.uid,
+                bookID: bookId,
+                bookTitle: bookTitle,
+                content: content,
+                createdAt: new Date()
+            })
+            .then(() => {
+                console.log('Uploaded')
+                handleClose()
+                setSuccess(true);
             })
             .catch(err => {
                 console.log(err)
@@ -54,14 +80,18 @@ function _Search(props: { user: any; }) {
                                             <Button style={{ backgroundColor: "#6c63ff" }} className="mr-sm-2">Preview</Button>
                                         </a>
                                         <Button style={{ backgroundColor: "#6c63ff" }} className="mr-sm-2">View Summaries</Button>
-                                        <Button style={{ backgroundColor: "#6c63ff" }} onClick={() => {setBookId(book.id); setShow(true); setBookTitle(book.volumeInfo.title)}}>Write Summary</Button>
+                                        { props.user ? 
+                                        <Button style={{ backgroundColor: "#6c63ff" }} onClick={() => { setBookId(book.id); setShow(true); setBookTitle(book.volumeInfo.title) }}>Write Summary</Button>
+                                        :
+                                        <Link to="/login"><Button style={{ backgroundColor: "#6c63ff" }}>Login to write summary</Button></Link>
+                                        }
                                     </div>
                                     <hr />
                                 </Col>
                             </Row>
                         ))
                         :
-                        <Form onSubmit={handleForm}>
+                        <Form onSubmit={handleSearch}>
                             <Form.Group>
                                 <Form.Label>
                                     Title
@@ -85,8 +115,8 @@ function _Search(props: { user: any; }) {
                 <Modal.Header closeButton>
                     <Modal.Title className="text-center"><h4>Your {bookTitle} Summary:</h4></Modal.Title>
                 </Modal.Header>
-                <Modal.Body>
-                    <Form>
+                <Form onSubmit={handleUpload}>
+                    <Modal.Body>
                         <Form.Group>
                             <Form.Label>
                                 Your summary:
@@ -99,12 +129,26 @@ function _Search(props: { user: any; }) {
                                 onChange={(e) => setContent(e.target.value)}
                             />
                         </Form.Group>
-                    </Form>
-                </Modal.Body>
-                <Modal.Footer>
-                    <Button variant="secondary" onClick={handleClose}>Close</Button>
-                    <Button style={{ backgroundColor: "#6c63ff" }} onClick={handleClose}>Upload Summary</Button>
-                </Modal.Footer>
+                    </Modal.Body>
+                    <Modal.Footer>
+                        <Button variant="secondary" onClick={handleClose}>Close</Button>
+                        <Button style={{ backgroundColor: "#6c63ff" }} type="submit">Post Summary</Button>
+                    </Modal.Footer>
+                </Form>
+            </Modal>
+
+            <Modal show={success} onHide={() => setSuccess(false)} size="lg" centered>
+                <Modal.Header closeButton>
+                    <Modal.Title className="text-center"><h2>Success 💯</h2></Modal.Title>
+                </Modal.Header>
+                    <Modal.Body>
+                        <Alert variant="success" className="text-center">
+                            <h4>Successfully uploaded summary.</h4>
+                        </Alert>
+                    </Modal.Body>
+                    <Modal.Footer>
+                        <Button style={{ backgroundColor: "#6c63ff" }} onClick={() => setSuccess(false)}>Close</Button>
+                    </Modal.Footer>
             </Modal>
         </Container>
     );
