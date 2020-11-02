@@ -43,7 +43,7 @@ function App() {
   return (
     <Router>
 
-      <Navbar bg="light" expand="lg" style={{ marginBottom: 100 }}>
+      <Navbar bg="light" expand="lg" style={{ marginBottom: 20 }}>
         <Link to="/"><Navbar.Brand style={{ color: "#6c63ff" }} className="brand"><FontAwesomeIcon icon={ faQuoteRight } size={"2x"}></FontAwesomeIcon></Navbar.Brand></Link>
         <Navbar.Toggle aria-controls="basic-navbar-nav" />
         <Navbar.Collapse id="basic-navbar-nav">

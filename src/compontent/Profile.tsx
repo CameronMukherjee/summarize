@@ -71,7 +71,7 @@ function _Profile(props: { user: any; }) {
                                     <Form.Label>
                                         Display Name
                                     </Form.Label>
-                                    <div style={{ marginLeft: 250, marginRight: 250}} className="text-center">
+                                    <div className="text-center">
                                         <input
                                         className="form form-control text-center"
                                         type="text"
@@ -87,7 +87,7 @@ function _Profile(props: { user: any; }) {
                                     <Form.Label>
                                         Email
                                     </Form.Label>
-                                    <div style={{ marginLeft: 250, marginRight: 250}} className="text-center">
+                                    <div className="text-center">
                                         <input
                                         className="form form-control text-center"
                                         type="email"

@@ -17,6 +17,10 @@ p, small {
 }
 
 .scroll-col {
-    position: absolute;
     overflow-y: scroll;
+    /* display: block; */
+}
+
+.scroll-col::-webkit-scrollbar {
+    display: none;
 }

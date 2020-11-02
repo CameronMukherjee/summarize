@@ -126,7 +126,7 @@ function LoginView() {
                         {/* <Button className="mr-sm-2" style={{ backgroundColor: "#6c63ff" }}>Login with Facebook</Button> */}
                     </div>
                 </Col>
-                <Col className="my-auto">
+                <Col className="my-auto d-none d-lg-block">
                     <Image src='./bookshelves.svg' className="img img-fluid"></Image>
                 </Col>
             </Row>

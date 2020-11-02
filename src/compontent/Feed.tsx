@@ -20,21 +20,35 @@ function _Feed(props: { user: any; }) {
     const [ summaries ]: any[] = useCollectionData(firebase.firestore().collection('summary').orderBy('createdAt').limit(25), { idField: 'id' });
 
     return (
+        // <Container>
+        //     <Row>
+        //         <Col className="text-center">
+        //             <div className="d-none d-lg-block">
+        //                 <Image src={props.user.photoURL} roundedCircle />
+        //                 <h4>{props.user.displayName}</h4>
+        //             </div>
+        //                 {/* <h6>{props.user.email}</h6>  */}
+        //                 <Link to="/search"><Button style={{width: "100%", marginBottom: 10, backgroundColor: "#6c63ff"}}>Write Summary Now ✍️</Button></Link>
+        //         </Col>
+        //     </Row>
+        //     <Row className="scroll-col text-center" style={{ maxHeight: "60vh", maxWidth: "60vw"}}>
+        //         <Col>
+        //             { summaries && summaries.map((summary: {id: string}) => <Summary key={summary.id} message={summary}></Summary>) }
+        //         </Col>
+        //     </Row>
+        // </Container> 
         <Container>
             <Row>
-                <Col>
-                    <Row>
-                        <Col>
-                            <div className="text-center">
-                                <Image src={props.user.photoURL} roundedCircle />
-                                <h4>{props.user.displayName}</h4>
-                                <h6>{props.user.email}</h6> 
-                                <Link to="/search"><Button style={{width: "100%", marginBottom: 10, backgroundColor: "#6c63ff"}}>Write Summary Now ✍️</Button></Link>
-                            </div>
-                        </Col>
-                    </Row>
+                <Col className="col-md-4 text-center d-none d-lg-block">
+                    <Image src={props.user.photoURL} roundedCircle />
+                    <h4>{props.user.displayName}</h4>
+                    <h6>{props.user.email}</h6> 
+                    <Link to="/search"><Button style={{width: "100%", marginBottom: 10, backgroundColor: "#6c63ff"}}>Write Summary Now ✍️</Button></Link>
                 </Col>
-                <Col className="col col-md-8 scroll-col" style={{ maxHeight: "80vh", width:"100%"}}>
+                <Col className="scroll-col col-md-8" style={{ maxHeight: "85vh"}}>
+                    <div className="d-xs-block d-sm-block d-md-block d-lg-none">
+                        <Link to="/search"><Button style={{width: "100%", marginBottom: 10, backgroundColor: "#6c63ff"}}>Write Summary Now ✍️</Button></Link>
+                    </div>
                     { summaries && summaries.map((summary: {id: string}) => <Summary key={summary.id} message={summary}></Summary>) }
                 </Col>
             </Row>
