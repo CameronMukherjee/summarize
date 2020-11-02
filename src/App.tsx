@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { Button, Navbar, Nav, FormControl, Form } from 'react-bootstrap';
 import { BrowserRouter as Router, Switch, Route, Link } from 'react-router-dom';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faUser, faAddressBook, faSearch } from '@fortawesome/free-solid-svg-icons';
+import { faUser, faAddressBook, faSearch, faQuoteRight } from '@fortawesome/free-solid-svg-icons';
 
 import firebase from 'firebase/app';
 // eslint-disable-next-line import/no-unassigned-import
@@ -44,21 +44,10 @@ function App() {
     <Router>
 
       <Navbar bg="light" expand="lg" style={{ marginBottom: 100 }}>
-        <Link to="/"><Navbar.Brand style={{ color: "#6c63ff" }}>Summarize</Navbar.Brand></Link>
+        <Link to="/"><Navbar.Brand style={{ color: "#6c63ff" }} className="brand"><FontAwesomeIcon icon={ faQuoteRight } size={"2x"}></FontAwesomeIcon></Navbar.Brand></Link>
         <Navbar.Toggle aria-controls="basic-navbar-nav" />
         <Navbar.Collapse id="basic-navbar-nav">
           <Nav className="mr-auto">
-            {/* <Form inline>
-              <input
-                className="form form-control mr-sm-2"
-                type="email"
-                id="email"
-                value={query}
-                placeholder="1984 - George Orwell"
-                onChange={(e) => setQuery(e.target.value)}
-              />
-              <Button type="submit" variant="outline-success" className="mr-sm-2">Find Summary</Button>
-            </Form> */}
           </Nav>
           <Link to="/search" className="theme1 mr-sm-3"><FontAwesomeIcon icon={ faSearch } size={"2x"}></FontAwesomeIcon></Link>
           { user ? 

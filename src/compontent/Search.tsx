@@ -65,7 +65,7 @@ function _Search(props: { user: any; }) {
             <Row>
                 <Col style={{ marginBottom: 30 }}>
                     <div className="text-center">
-                        <h1>Search for a book</h1>
+                        <h1>Search for a Book</h1>
                         {formSent && <Button style={{ backgroundColor: "#6c63ff" }} className="mr-sm-2" onClick={() => setFormSent(false)}>Search again?</Button>}
                     </div>
                 </Col>
@@ -94,19 +94,22 @@ function _Search(props: { user: any; }) {
                             </Row>
                         ))
                         :
-                        <Form onSubmit={handleSearch}>
+                        <Form onSubmit={handleSearch} className="text-center">
                             <Form.Group>
                                 <Form.Label>
                                     Title
                             </Form.Label>
+                            <div style={{ marginLeft: 250, marginRight: 250}}>
                                 <input
-                                    className="form form-control"
+                                    className="form form-control text-center"
                                     type="text"
                                     id="title"
                                     value={title}
+                                    placeholder="To Kill a Mockingbird"
                                     onChange={(e) => setTitle(e.target.value)}
                                 />
-                                <div className="text-right" style={{ marginTop: 10 }}>
+                            </div>
+                                <div style={{ marginTop: 10 }}>
                                     <Button type="submit" style={{ backgroundColor: "#6c63ff" }}>Search</Button>
                                 </div>
                             </Form.Group>
