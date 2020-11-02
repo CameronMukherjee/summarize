@@ -45,7 +45,7 @@ function _Feed(props: { user: any; }) {
                     <h6>{props.user.email}</h6> 
                     <Link to="/search"><Button style={{width: "100%", marginBottom: 10, backgroundColor: "#6c63ff"}}>Write Summary Now ✍️</Button></Link>
                 </Col>
-                <Col className="scroll-col col-md-8" style={{ maxHeight: "85vh"}}>
+                <Col className="scroll-col col-md-8" style={{ maxHeight: "85vh", msOverflowStyle: "none", scrollbarWidth: "none"}}>
                     <div className="d-xs-block d-sm-block d-md-none ">
                         <Link to="/search"><Button style={{width: "100%", marginBottom: 10, backgroundColor: "#6c63ff"}}>Write Summary Now ✍️</Button></Link>
                     </div>
