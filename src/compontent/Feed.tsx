@@ -39,7 +39,7 @@ function _Feed(props: { user: any; }) {
         // </Container> 
         <Container>
             <Row>
-                <Col className="col-md-4 text-center d-none d-lg-block">
+                <Col className="col-md-4 text-center d-none d-md-block d-lg-block">
                     <Image src={props.user.photoURL} roundedCircle />
                     <h4>{props.user.displayName}</h4>
                     <h6>{props.user.email}</h6> 
