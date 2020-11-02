@@ -42,6 +42,8 @@ function _Search(props: { user: any; }) {
             .collection('summary')
             .add({
                 uid: props.user.uid,
+                displayName: props.user.displayName,
+                photoURL: props.user.photoURL,
                 bookID: bookId,
                 bookTitle: bookTitle,
                 content: content,
@@ -49,6 +51,7 @@ function _Search(props: { user: any; }) {
             })
             .then(() => {
                 console.log('Uploaded')
+                setContent('');
                 handleClose()
                 setSuccess(true);
             })
