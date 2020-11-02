@@ -39,14 +39,14 @@ function _Feed(props: { user: any; }) {
         // </Container> 
         <Container>
             <Row>
-                <Col className="col-md-4 text-center d-none d-lg-block">
+                <Col className="col-md-4 text-center d-none d-md-block d-lg-block">
                     <Image src={props.user.photoURL} roundedCircle />
                     <h4>{props.user.displayName}</h4>
                     <h6>{props.user.email}</h6> 
                     <Link to="/search"><Button style={{width: "100%", marginBottom: 10, backgroundColor: "#6c63ff"}}>Write Summary Now ✍️</Button></Link>
                 </Col>
                 <Col className="scroll-col col-md-8" style={{ maxHeight: "85vh"}}>
-                    <div className="d-xs-block d-sm-block d-md-block d-lg-none">
+                    <div className="d-xs-block d-sm-block d-md-none ">
                         <Link to="/search"><Button style={{width: "100%", marginBottom: 10, backgroundColor: "#6c63ff"}}>Write Summary Now ✍️</Button></Link>
                     </div>
                     { summaries && summaries.map((summary: {id: string}) => <Summary key={summary.id} message={summary}></Summary>) }
