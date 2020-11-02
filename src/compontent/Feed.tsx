@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Redirect } from 'react-router-dom';
+import { Link, Redirect } from 'react-router-dom';
 import { Container, Row, Col, Image, Button, Form, FormGroup, FormLabel } from 'react-bootstrap';
 
 import firebase from 'firebase/app';
@@ -11,14 +11,13 @@ import { useAuthState } from 'react-firebase-hooks/auth';
 import { useCollectionData } from 'react-firebase-hooks/firestore';
 
 function _Feed(props: { user: any; }) {
+    if (!props.user) {
+        return (<Redirect to="/login" />)
+    }
     const [bookTitle, setBookTitle] = useState("");
     const [summaryBody, setSummaryBody] = useState("");
 
     const [ summaries ]: any[] = useCollectionData(firebase.firestore().collection('summary').orderBy('createdAt').limit(25), { idField: 'id' });
-
-    if (!props.user) {
-        return (<Redirect to="/login" />)
-    }
 
     return (
         <Container>
@@ -27,7 +26,8 @@ function _Feed(props: { user: any; }) {
                     <Row>
                         <Col>
                             <div className="text-center">
-                                <Image src={props.user.photoURL} className="img img-thumbnail" style={{ height: "100%", width: "100%" }} />
+                                <Link to="/search"><Button style={{width: "100%", marginBottom: 10, backgroundColor: "#6c63ff"}}>Write Summary Now ✍️</Button></Link>
+                                <Image src={props.user.photoURL} className="img img-fluid" style={{ height: "100%", width: "100%" }} />
                             </div>
                         </Col>
                     </Row>
@@ -60,12 +60,12 @@ function Summary(props: { key: any, message: any}) {
                 </p>
                 <Row>
                     <Col className="col col-sm-1 my-auto">
-                    <a href={uid}><Image src={photoURL} style={{ height: 60 }} className="mr-sm-3" roundedCircle/></a>
+                        <a href={uid}><Image src={photoURL} style={{ height: 60 }} className="mr-sm-5" roundedCircle/></a>
                     </Col>
                     <Col className="col col-sm-5 my-auto">
-                    <div>
-                        <h6>{displayName}</h6>
-                    </div>
+                        <div>
+                            <h6>{displayName}</h6>
+                        </div>
                     </Col>
                     <Col className="col col-sm-6">
                         <div className="text-right">
