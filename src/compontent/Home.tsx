@@ -6,7 +6,7 @@ function _Home(props: { user: any; }) {
         <Container className="fluid">
             <Row>
                 <Col className="my-auto text-center">
-                    <h1 style={{ fontSize: 100 }}>
+                    <h1 style={{ fontSize: 60 }}>
                         Summarize
                     </h1>
                     <h3 className="text-center">
