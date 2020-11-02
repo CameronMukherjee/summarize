@@ -1,8 +1,11 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Redirect } from 'react-router-dom';
-import { Container, Row, Col, Image, Button } from 'react-bootstrap';
+import { Container, Row, Col, Image, Button, Form, FormGroup, FormLabel } from 'react-bootstrap';
 
 function _Feed(props: { user: any; }) {
+    const [bookTitle, setBookTitle] = useState("");
+    const [summaryBody, setSummaryBody] = useState("");
+
     if (!props.user) {
         return (<Redirect to="/login" />)
     }
@@ -26,6 +29,33 @@ function _Feed(props: { user: any; }) {
                     </Row>
                 </Col>
                 <Col className="col col-md-8">
+                    {/* <h3>Create a new summary:</h3>
+                    <Form>
+                        <Form.Group>
+                            <Form.Label>
+                                Book Name
+                            </Form.Label>
+                            <input
+                                className="form form-control"
+                                type="text"
+                                id="bookTitle"
+                                value={bookTitle}
+                                // onChange={(e) => setEmail(e.target.value)}
+                            />
+                            <Form.Label>
+                                Your Summary
+                            </Form.Label>
+                            <textarea 
+                            className="form form-control"
+                            id="summary"
+                            value={summaryBody}
+                            maxLength={2500} />
+                            <div className="text-right" style={{ marginTop: 10 }}>
+                                <Button type="submit" style={{ backgroundColor: "#6c63ff" }}>Upload Summary</Button>
+                            </div>
+                            <hr/>
+                        </Form.Group>
+                    </Form> */}
                     <Summary />
                 </Col>
             </Row>
@@ -37,15 +67,16 @@ function Summary() {
     return (
         <Row>
             <Col>
-                <div className="text-center">
-                    <h2>Title</h2>
-                </div>
+                <h2>1984 - George Orwell</h2>
                 <p>
                     Main text, Lorem, ipsum dolor sit amet consectetur adipisicing elit. Non placeat doloremque praesentium fuga voluptatum, porro maiores aliquam dolores, modi ea tempora delectus enim at saepe quasi dicta fugit ipsum illum.
                 </p>
-                <div className="text-center">
-                    <Button>Like</Button>
-                    <Button>Comment</Button>
+                <div className="text-right">
+                    <small> PROFILE PIC - Author Name</small>
+                </div>
+                <div className="text-right">
+                    <Button style={{ backgroundColor: "#6c63ff" }} className="mr-sm-1">Like</Button>
+                    <Button style={{ backgroundColor: "#6c63ff" }} >Comment</Button>
                 </div>
             </Col>
         </Row>

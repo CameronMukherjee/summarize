@@ -13,7 +13,7 @@ function _Login(props: { user: any; }) {
         )
     } else {
         return (
-            <LoginView/>
+            <LoginView />
         )
     }
 }
@@ -33,6 +33,7 @@ function LoginView() {
             auth.signInWithEmailAndPassword(email, password)
                 .then(r => {
                     console.log(r)
+                    return (<Redirect to="./feed" />)
                 })
                 .catch(err => {
                     setError(err.message);
@@ -45,6 +46,7 @@ function LoginView() {
             auth.createUserWithEmailAndPassword(email, password)
                 .then(r => {
                     console.log(r)
+                    return (<Redirect to="./login" />)
                 })
                 .catch(err => {
                     setError(err.message);
@@ -65,23 +67,23 @@ function LoginView() {
             <Row>
                 <Col className="my-auto">
                     <div className="text-center">
-                        <h1>{ formType }</h1>
-                        { 
-                        printError ? 
-                        <Alert variant="danger">
-                            { error }
-                        </Alert>
-                        : 
-                        null 
+                        <h1>{formType}</h1>
+                        {
+                            printError ?
+                                <Alert variant="danger">
+                                    {error}
+                                </Alert>
+                                :
+                                null
                         }
                         <div className="text-center">
-                            { formType === "Login" && 
-                            <p><br/><Button style={{ backgroundColor: "#6c63ff" }} onClick={() => setForm("Register")}>Dont have an account? Register Now</Button></p>
+                            {formType === "Login" &&
+                                <p><br /><Button style={{ backgroundColor: "#6c63ff" }} onClick={() => setForm("Register")}>Dont have an account? Register Now</Button></p>
                             }
-                            { formType === "Register" &&
-                            <p><br/><Button style={{ backgroundColor: "#6c63ff" }} onClick={() => setForm("Login")}>Already have an account? Login Instead</Button></p>
+                            {formType === "Register" &&
+                                <p><br /><Button style={{ backgroundColor: "#6c63ff" }} onClick={() => setForm("Login")}>Already have an account? Login Instead</Button></p>
                             }
-                            
+
                         </div>
                     </div>
                     <Form onSubmit={handleForm}>
@@ -112,9 +114,9 @@ function LoginView() {
                             />
                         </Form.Group>
                         <div className="text-right">
-                        <SignInWithGoogle />
+                            <SignInWithGoogle />
                             <Button variant="primary" type="submit" style={{ backgroundColor: "#6c63ff" }}>
-                                { formType }
+                                {formType}
                             </Button>
                         </div>
                     </Form>
@@ -143,7 +145,7 @@ function SignInWithGoogle() {
         auth.signInWithPopup(provider)
             .then(r => {
                 console.log(r)
-                return (<Redirect to={"feed"} />)
+                return (<Redirect to="./feed" />)
             })
             .catch(e => console.log(e))
     }

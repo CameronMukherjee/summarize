@@ -17,10 +17,10 @@ function _Home(props: { user: any; }) {
                     </small>
                 </Col>
                 <Col className="my-auto">
-                <Image src="./book-lover.svg" className="img img-fluid"></Image>
+                    <Image src="./book-lover.svg" className="img img-fluid"></Image>
                 </Col>
             </Row>
-        </Container>  
+        </Container>
     );
 }
 
