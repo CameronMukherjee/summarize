@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { Link, Redirect } from 'react-router-dom';
-import * as axios from 'axios';
+import axios from 'axios';
 import { Container, Row, Col, Image, Button, Form, FormGroup, FormLabel } from 'react-bootstrap';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faHeart, faComment } from '@fortawesome/free-solid-svg-icons';
@@ -12,7 +12,6 @@ import 'firebase/firestore';
 import 'firebase/auth';
 import { useAuthState } from 'react-firebase-hooks/auth';
 import { useCollectionData } from 'react-firebase-hooks/firestore';
-import Axios from 'axios';
 
 function _Feed(props: { user: any; }) {
     if (!props.user) {
@@ -50,12 +49,20 @@ function Summary(props: { key: any, message: any, user: any }) {
     // FIXME: Created at crashing application.
 
     const likeSummary = () => {
-        const url = "";
-        // axios.post()
+        const url = "https://us-central1-summarize-1325c.cloudfunctions.net/summary/likes";
+        axios.post(url, {
+                id: id,
+                uid: props.user.uid
+            })
+            .then(r => {
+                console.log(r)
+            })
+            .catch(e => {
+                console.log(e)
+            })
     }
 
     return (
-        // <h1>{content}</h1>
         <Row>
             <Col>
                 <h2>{bookTitle}</h2>
@@ -69,7 +76,7 @@ function Summary(props: { key: any, message: any, user: any }) {
                     </Col>
                     <Col className="col my-auto">
                         <div className="text-right">
-                            <a onClick={() => console.log(id)}><FontAwesomeIcon icon={faHeart} size="2x" style={{ color: "#6c63ff" }} className="mr-sm-1"></FontAwesomeIcon></a>
+                            <a onClick={likeSummary}><FontAwesomeIcon icon={faHeart} size="2x" style={{ color: "#6c63ff" }} className="mr-sm-1"></FontAwesomeIcon></a>
                             <FontAwesomeIcon icon={faComment} size="2x" style={{ color: "#6c63ff" }} className="mr-sm-1"></FontAwesomeIcon>
                             {/* <Button style={{ backgroundColor: "#6c63ff" }} >Comment</Button> */}
                         </div>

@@ -8,6 +8,7 @@
 import * as functions from 'firebase-functions';
 import * as express from 'express';
 import * as admin from 'firebase-admin';
+import * as cors from 'cors';
 
 admin.initializeApp();
 
@@ -16,6 +17,12 @@ admin.initializeApp();
  */
 const summaryMS = express();
 const userMS = express();
+
+/**
+ * Enabling cors on microservice
+ */
+summaryMS.use(cors());
+userMS.use(cors());
 
 /**
  * Routing for modularisation and maintainability of code.
