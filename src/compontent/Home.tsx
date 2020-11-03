@@ -7,7 +7,12 @@ function _Home(props: { user: any; }) {
     return (
         <Container className="fluid">
             <Row>
-                <Col className="my-auto text-center">
+                    <Col className="d-none d-lg-block text-center" style={{ marginBottom: 60 }}>
+                        <Image src="./book-lover.svg" className="img img-fluid" style={{ maxWidth: "50vw", maxHeight: "50vh"}}/>
+                    </Col>
+                </Row>
+            <Row>
+                <Col className="text-center">
                     <FontAwesomeIcon className="theme1" icon={ faQuoteRight } size={"3x"}></FontAwesomeIcon>
                     <h1 style={{ fontSize: 60 }}>
                         Summarize
@@ -18,9 +23,6 @@ function _Home(props: { user: any; }) {
                     <small>
                         Cameron Mukherjee
                     </small>
-                </Col>
-                <Col className="my-auto d-none d-lg-block">
-                    <Image src="./book-lover.svg" className="img img-fluid" />
                 </Col>
             </Row>
         </Container>
