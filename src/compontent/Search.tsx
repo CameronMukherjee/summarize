@@ -27,6 +27,7 @@ function _Search(props: { user: any; }) {
         axios.get(url)
             .then(data => {
                 console.log(data.data.items)
+                setTitle("")
                 setResult(data.data.items)
                 setFormSent(true);
             })
