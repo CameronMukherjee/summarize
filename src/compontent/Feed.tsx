@@ -89,12 +89,6 @@ function Summary(props: { key: any, message: any, user: any }) {
                     setLiked(true)
                 }
             })
-            // if (r.data[0]) {
-            //     console.log(r.data[0].id)
-            //     if (r.data[0].id === props.user.id) {
-            //         setLiked(true)
-            //     }
-            // }
         })
         .catch(e => {
             console.log(e)

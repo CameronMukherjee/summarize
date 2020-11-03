@@ -2,8 +2,10 @@ import React, { useState } from 'react';
 import axios from 'axios';
 import { Container, Row, Col, Image, Button, Form, FormGroup, FormLabel, Modal, Alert } from 'react-bootstrap';
 import { Link, Redirect } from 'react-router-dom';
+import { useCollectionData } from 'react-firebase-hooks/firestore';
 
 import firebase from 'firebase/app';
+import { ScriptSnapshot } from 'typescript';
 
 const apiKey = "AIzaSyAXOm3FiT8ogS_9ybmX-GipTb8ODE0_LcU";
 
@@ -18,7 +20,15 @@ function _Search(props: { user: any; }) {
     const [content, setContent] = useState("");
     const handleClose = () => setShow(false);
 
+    const [viewSummaryModal, setViewSummaryModal] = useState(false);
     const [success, setSuccess] = useState(false);
+
+    const [summaries]: any[] = useCollectionData(firebase.firestore().collection('summary').where('bookID', '==', bookId).orderBy('createdAt').limit(25), { idField: 'id' });
+
+    // const getSummaries = () => {
+    //     const [summaries]: any[] = useCollectionData(firebase.firestore().collection('summary').where('bookID', '==', bookId).orderBy('createdAt').limit(25), { idField: 'id' });   
+    //     return summaries;
+    // }
 
     const handleSearch = (e: React.FormEvent) => {
         // const url = `https://www.googleapis.com/books/v1/volumes?q=${title}+inauthor:${author}+inpublisher:${publisher}+isbn:${isbn}&key=${apiKey}`
@@ -83,11 +93,11 @@ function _Search(props: { user: any; }) {
                                         <a href={book.volumeInfo.previewLink} target="_blank">
                                             <Button style={{ backgroundColor: "#6c63ff" }} className="mr-sm-2">Preview</Button>
                                         </a>
-                                        <Button style={{ backgroundColor: "#6c63ff" }} className="mr-sm-2">View Summaries</Button>
-                                        { props.user ? 
-                                        <Button style={{ backgroundColor: "#6c63ff" }} onClick={() => { setBookId(book.id); setShow(true); setBookTitle(book.volumeInfo.title) }}>Write Summary</Button>
-                                        :
-                                        <Link to="/login"><Button style={{ backgroundColor: "#6c63ff" }}>Login to write summary</Button></Link>
+                                        <Button style={{ backgroundColor: "#6c63ff" }} className="mr-sm-2" onClick={() => { setBookId(book.id); setViewSummaryModal(true); setBookTitle(book.volumeInfo.title); }}>View Summaries</Button>
+                                        {props.user ?
+                                            <Button style={{ backgroundColor: "#6c63ff" }} onClick={() => { setBookId(book.id); setShow(true); setBookTitle(book.volumeInfo.title) }}>Write Summary</Button>
+                                            :
+                                            <Link to="/login"><Button style={{ backgroundColor: "#6c63ff" }}>Login to write summary</Button></Link>
                                         }
                                     </div>
                                     <hr />
@@ -100,16 +110,16 @@ function _Search(props: { user: any; }) {
                                 <Form.Label>
                                     Title
                             </Form.Label>
-                            <div>
-                                <input
-                                    className="form form-control text-center"
-                                    type="text"
-                                    id="title"
-                                    value={title}
-                                    placeholder="To Kill a Mockingbird"
-                                    onChange={(e) => setTitle(e.target.value)}
-                                />
-                            </div>
+                                <div>
+                                    <input
+                                        className="form form-control text-center"
+                                        type="text"
+                                        id="title"
+                                        value={title}
+                                        placeholder="To Kill a Mockingbird"
+                                        onChange={(e) => setTitle(e.target.value)}
+                                    />
+                                </div>
                                 <div style={{ marginTop: 10 }}>
                                     <Button type="submit" style={{ backgroundColor: "#6c63ff" }}>Search</Button>
                                 </div>
@@ -118,6 +128,22 @@ function _Search(props: { user: any; }) {
                     }
                 </Col>
             </Row>
+
+            {/* View summaries modal */}
+            <Modal show={viewSummaryModal} onHide={() => setViewSummaryModal(false)} size="lg" centered>
+                <Modal.Header closeButton>
+                    <Modal.Title className="text-center"><h4>{bookTitle} Summaries:</h4></Modal.Title>
+                </Modal.Header>
+                <Modal.Body>
+                    {/* {summaries && summaries.map((summary: { id: string }) => <Summary key={summary.id} summary={summary}></Summary>)} */}
+                </Modal.Body>
+                <Modal.Footer>
+                    <Button variant="secondary" onClick={() => setViewSummaryModal(false)}>Close</Button>
+                    <Button style={{ backgroundColor: "#6c63ff" }} type="submit">Post Summary</Button>
+                </Modal.Footer>
+            </Modal>
+
+            {/* Upload new book summary modal */}
             <Modal show={show} onHide={handleClose} size="lg" centered>
                 <Modal.Header closeButton>
                     <Modal.Title className="text-center"><h4>Your {bookTitle} Summary:</h4></Modal.Title>
@@ -144,18 +170,19 @@ function _Search(props: { user: any; }) {
                 </Form>
             </Modal>
 
+            {/* Successfully uploaded summary modal */}
             <Modal show={success} onHide={() => setSuccess(false)} size="lg" centered>
                 <Modal.Header closeButton>
                     <Modal.Title className="text-center"><h2>Success 💯</h2></Modal.Title>
                 </Modal.Header>
-                    <Modal.Body>
-                        <Alert variant="success" className="text-center">
-                            <h4>Successfully uploaded summary.</h4>
-                        </Alert>
-                    </Modal.Body>
-                    <Modal.Footer>
-                        <Button style={{ backgroundColor: "#6c63ff" }} onClick={() => setSuccess(false)}>Close</Button>
-                    </Modal.Footer>
+                <Modal.Body>
+                    <Alert variant="success" className="text-center">
+                        <h4>Successfully uploaded summary.</h4>
+                    </Alert>
+                </Modal.Body>
+                <Modal.Footer>
+                    <Button style={{ backgroundColor: "#6c63ff" }} onClick={() => setSuccess(false)}>Close</Button>
+                </Modal.Footer>
             </Modal>
         </Container>
     );
