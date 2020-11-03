@@ -111,4 +111,79 @@ router.delete('/', (req: express.Request, res: express.Response) => {
         })
 })
 
+/**
+ * GET /summary/likes/:summaryID
+ * Returns likes for a specific summary.
+ * @param {string} req.params.summaryID
+ */
+router.get('/likes/:summaryID', (req: express.Request, res: express.Response) => {
+    const likes: any[] = [];
+
+    admin
+        .firestore()
+        .collection('summary')
+        .doc(req.params.summaryID)
+        .collection('like')
+        .get()
+        .then((snapShot) => {
+            snapShot.forEach((doc) => {
+                likes.push({ id: doc.id, ...doc.data() });
+            });
+            return res.status(200).json(likes);
+        })
+        .catch((e) => {
+            return res.status(500).json({ error: e });
+        });
+});
+
+/**
+ * POST /summary/likes/
+ * Adds a like to a summary.
+ * @param {string} req.body.summaryID
+ * @param {string} req.body.uid
+ */
+router.post('/likes', (req: express.Request, res: express.Response) => {
+    admin
+        .firestore()
+        .collection('summary')
+        .doc(req.body.summaryID)
+        .collection('like')
+        .doc(req.body.uid)
+        .set({
+            createdAt: admin.firestore.Timestamp.fromDate(new Date())
+        })
+        .then((doc) => {
+            return res.status(200).json({
+                message: `${req.body.uid} liked ${req.body.summaryID} successfully.`
+            });
+        })
+        .catch((e) => {
+            return res.status(500).json({ error: e });
+        });
+});
+
+/**
+ * DELETE /summary/likes/
+ * Removes a like from a summary.
+ * @param {string} req.body.summaryID
+ * @param {string} req.body.uid
+ */
+router.delete('/likes', (req: express.Request, res: express.Response) => {
+    admin
+        .firestore()
+        .collection('summary')
+        .doc(req.body.summaryID)
+        .collection('like')
+        .doc(req.body.uid)
+        .delete()
+        .then(() => {
+            return res.status(200).json({
+                message: `Successfully deleted like from summary: ${req.body.summaryID}`
+            }); //TODO: Test
+        })
+        .catch((e) => {
+            return res.status(500).json({ error: e });
+        });
+});
+
 module.exports = router;
