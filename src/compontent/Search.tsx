@@ -23,7 +23,32 @@ function _Search(props: { user: any; }) {
     const [viewSummaryModal, setViewSummaryModal] = useState(false);
     const [success, setSuccess] = useState(false);
 
+    const [displayNames, setDisplayNames] = useState<any[]>([]);
+    const [summaryContent, setSummaryContent] = useState<any[]>([]);
+
     // const [summaries]: any[] = useCollectionData(firebase.firestore().collection('summary').where('bookID', '==', bookId).orderBy('createdAt').limit(25), { idField: 'id' });
+
+    const handleX = (bookID: string) => {
+        console.log('Handling X')
+        const summaries = firebase.firestore().collection('summary').where('bookID', '==', bookID).orderBy('createdAt').limit(25);
+        const displayNameArray: any[] = [];
+        const contentArray: any[] = [];
+        summaries.get()
+            .then(snapshot => {
+                snapshot.forEach(x => {
+                    console.log(x.data())
+                    displayNameArray.push(x.data().displayName)
+                    contentArray.push(x.data().content)
+                })
+                setDisplayNames(displayNameArray)
+                setSummaryContent(contentArray)
+                console.log(displayNames)
+                console.log(summaryContent)
+            })
+            .catch(e => {
+                console.log(e)
+            })
+    }
 
     const handleSearch = (e: React.FormEvent) => {
         // const url = `https://www.googleapis.com/books/v1/volumes?q=${title}+inauthor:${author}+inpublisher:${publisher}+isbn:${isbn}&key=${apiKey}`
@@ -31,7 +56,7 @@ function _Search(props: { user: any; }) {
         e.preventDefault()
         axios.get(url)
             .then(data => {
-                console.log(data.data.items)
+                // console.log(data.data.items)
                 setTitle("")
                 setResult(data.data.items)
                 setFormSent(true);
@@ -88,7 +113,7 @@ function _Search(props: { user: any; }) {
                                         <a href={book.volumeInfo.previewLink} target="_blank">
                                             <Button style={{ backgroundColor: "#6c63ff" }} className="mr-sm-2">Preview</Button>
                                         </a>
-                                        <Button style={{ backgroundColor: "#6c63ff" }} className="mr-sm-2" onClick={() => { setBookId(book.id); setBookTitle(book.volumeInfo.title); setViewSummaryModal(true); }}>View Summaries</Button>
+                                        <Button style={{ backgroundColor: "#6c63ff" }} className="mr-sm-2" onClick={() => { setBookId(book.id); setBookTitle(book.volumeInfo.title); setViewSummaryModal(true); handleX(book.id) }}>View Summaries</Button>
                                         {props.user ?
                                             <Button style={{ backgroundColor: "#6c63ff" }} onClick={() => { setBookId(book.id); setBookTitle(book.volumeInfo.title); setShow(true); }}>Write Summary</Button>
                                             :
@@ -130,6 +155,10 @@ function _Search(props: { user: any; }) {
                     <Modal.Title className="text-center"><h4>{bookTitle} Summaries:</h4></Modal.Title>
                 </Modal.Header>
                 <Modal.Body>
+                    {/* TODO: Show list of names and content. */}
+                    <h5>{displayNames[0]}</h5>
+                    <p>{summaryContent[0]}</p>
+                    {/* {displayNames.forEach(name => <h1>{name}</h1>)} */}
                     {/* {summaries && summaries.map((summary: { id: string }) => <Summary key={summary.id} summary={summary}></Summary>)} */}
                 </Modal.Body>
                 <Modal.Footer>
