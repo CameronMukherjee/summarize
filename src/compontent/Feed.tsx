@@ -48,19 +48,58 @@ function Summary(props: { key: any, message: any, user: any }) {
     const { content, uid, bookID, bookTitle, displayName, photoURL, createdAt, id } = props.message;
     // FIXME: Created at crashing application.
 
+    const [liked, setLiked] = useState(false);
+    const [likes]: any[] = useCollectionData(firebase.firestore().collection('summary').doc(id).collection('like'));
+    // console.log("Likes:", likes)
+
     const likeSummary = () => {
         const url = "https://us-central1-summarize-1325c.cloudfunctions.net/summary/likes";
         axios.post(url, {
-                id: id,
-                uid: props.user.uid
-            })
+            summaryID: id,
+            uid: props.user.uid
+        })
             .then(r => {
-                console.log(r)
+                setLiked(true);
             })
             .catch(e => {
                 console.log(e)
             })
     }
+
+    const dislikeSummary = () => {
+        const url = "https://us-central1-summarize-1325c.cloudfunctions.net/summary/likes";
+        axios.delete(url, {
+            data: {
+                summaryID: id,
+                uid: props.user.uid
+            }
+        })
+            .then(r => {
+                setLiked(false)
+            })
+            .catch(e => {
+                console.log(e)
+            })
+    }
+
+    axios.get(`https://us-central1-summarize-1325c.cloudfunctions.net/summary/likes/${id}`)
+        .then(r => {
+            r.data.forEach((element: any) => {
+                if (element.id === props.user.uid) {
+                    setLiked(true)
+                }
+            })
+            // if (r.data[0]) {
+            //     console.log(r.data[0].id)
+            //     if (r.data[0].id === props.user.id) {
+            //         setLiked(true)
+            //     }
+            // }
+        })
+        .catch(e => {
+            console.log(e)
+        })
+
 
     return (
         <Row>
@@ -76,16 +115,22 @@ function Summary(props: { key: any, message: any, user: any }) {
                     </Col>
                     <Col className="col my-auto">
                         <div className="text-right">
-                            <a onClick={likeSummary}><FontAwesomeIcon icon={faHeart} size="2x" style={{ color: "#6c63ff" }} className="mr-sm-1"></FontAwesomeIcon></a>
-                            <FontAwesomeIcon icon={faComment} size="2x" style={{ color: "#6c63ff" }} className="mr-sm-1"></FontAwesomeIcon>
-                            {/* <Button style={{ backgroundColor: "#6c63ff" }} >Comment</Button> */}
+                            {liked ?
+                                <a onClick={dislikeSummary}><FontAwesomeIcon icon={faHeart} size="2x" style={{ color: "red" }} className="mr-sm-1"></FontAwesomeIcon></a>
+                                :
+                                <a onClick={likeSummary}><FontAwesomeIcon icon={faHeart} size="2x" style={{ color: "#6c63ff" }} className="mr-sm-1"></FontAwesomeIcon></a>
+                            }
+                            {/* <FontAwesomeIcon icon={faComment} size="2x" style={{ color: "#6c63ff" }} className="mr-sm-1"></FontAwesomeIcon> */}
                         </div>
                     </Col>
                 </Row>
                 <Row>
                     <Col>
                         <div className="text-right">
-                            <small>13 likes - 4 comments</small>
+                            {likes ?
+                                <small>{likes.length} likes</small>
+                                :
+                                0}
                         </div>
                     </Col>
                 </Row>
