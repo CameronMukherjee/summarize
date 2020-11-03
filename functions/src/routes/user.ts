@@ -52,7 +52,7 @@ router.get('/:uid', (req: express.Request, res: express.Response) => {
  * @param {string} req.body.displayName
  * @param {string} req.body.photoURL
  */
-router.post('/', (req: express.Request, res: express.Response) => {
+router.put('/', (req: express.Request, res: express.Response) => {
     admin
     .auth()
     .updateUser(req.body.uid, {
