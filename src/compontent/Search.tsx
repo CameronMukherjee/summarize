@@ -23,12 +23,7 @@ function _Search(props: { user: any; }) {
     const [viewSummaryModal, setViewSummaryModal] = useState(false);
     const [success, setSuccess] = useState(false);
 
-    const [summaries]: any[] = useCollectionData(firebase.firestore().collection('summary').where('bookID', '==', bookId).orderBy('createdAt').limit(25), { idField: 'id' });
-
-    // const getSummaries = () => {
-    //     const [summaries]: any[] = useCollectionData(firebase.firestore().collection('summary').where('bookID', '==', bookId).orderBy('createdAt').limit(25), { idField: 'id' });   
-    //     return summaries;
-    // }
+    // const [summaries]: any[] = useCollectionData(firebase.firestore().collection('summary').where('bookID', '==', bookId).orderBy('createdAt').limit(25), { idField: 'id' });
 
     const handleSearch = (e: React.FormEvent) => {
         // const url = `https://www.googleapis.com/books/v1/volumes?q=${title}+inauthor:${author}+inpublisher:${publisher}+isbn:${isbn}&key=${apiKey}`
@@ -93,9 +88,9 @@ function _Search(props: { user: any; }) {
                                         <a href={book.volumeInfo.previewLink} target="_blank">
                                             <Button style={{ backgroundColor: "#6c63ff" }} className="mr-sm-2">Preview</Button>
                                         </a>
-                                        <Button style={{ backgroundColor: "#6c63ff" }} className="mr-sm-2" onClick={() => { setBookId(book.id); setViewSummaryModal(true); setBookTitle(book.volumeInfo.title); }}>View Summaries</Button>
+                                        <Button style={{ backgroundColor: "#6c63ff" }} className="mr-sm-2" onClick={() => { setBookId(book.id); setBookTitle(book.volumeInfo.title); setViewSummaryModal(true); }}>View Summaries</Button>
                                         {props.user ?
-                                            <Button style={{ backgroundColor: "#6c63ff" }} onClick={() => { setBookId(book.id); setShow(true); setBookTitle(book.volumeInfo.title) }}>Write Summary</Button>
+                                            <Button style={{ backgroundColor: "#6c63ff" }} onClick={() => { setBookId(book.id); setBookTitle(book.volumeInfo.title); setShow(true); }}>Write Summary</Button>
                                             :
                                             <Link to="/login"><Button style={{ backgroundColor: "#6c63ff" }}>Login to write summary</Button></Link>
                                         }
