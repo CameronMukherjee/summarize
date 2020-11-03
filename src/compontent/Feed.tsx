@@ -19,24 +19,8 @@ function _Feed(props: { user: any; }) {
 
     const [ summaries ]: any[] = useCollectionData(firebase.firestore().collection('summary').orderBy('createdAt').limit(25), { idField: 'id' });
 
+
     return (
-        // <Container>
-        //     <Row>
-        //         <Col className="text-center">
-        //             <div className="d-none d-lg-block">
-        //                 <Image src={props.user.photoURL} roundedCircle />
-        //                 <h4>{props.user.displayName}</h4>
-        //             </div>
-        //                 {/* <h6>{props.user.email}</h6>  */}
-        //                 <Link to="/search"><Button style={{width: "100%", marginBottom: 10, backgroundColor: "#6c63ff"}}>Write Summary Now ✍️</Button></Link>
-        //         </Col>
-        //     </Row>
-        //     <Row className="scroll-col text-center" style={{ maxHeight: "60vh", maxWidth: "60vw"}}>
-        //         <Col>
-        //             { summaries && summaries.map((summary: {id: string}) => <Summary key={summary.id} message={summary}></Summary>) }
-        //         </Col>
-        //     </Row>
-        // </Container> 
         <Container>
             <Row>
                 <Col className="col-md-4 text-center d-none d-md-block d-lg-block">
