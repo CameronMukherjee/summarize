@@ -82,9 +82,24 @@ function _Search(props: { user: any; }) {
             })
             .then(() => {
                 console.log('Uploaded')
-                setContent('');
-                handleClose()
-                setSuccess(true);
+                // TODO: Add discord message here
+                /**
+                 * Not storing webhookURL in .env as lecturer might want to build and run themselves.
+                 */
+                const discordWebhookURL = "https://discord.com/api/webhooks/773465063624802315/gwqfzArqI9QIbxUbv4sgQ8YqZa4LJJxiQdswPvSRIDrcB7ZgXxoyQvNxk4MTmA29VH7X"
+                axios.post(discordWebhookURL, {
+                    username: `${props.user.displayName}`,
+                    avatar_url: props.user.photoURL,
+                    content: `I just added a new summary!\n\n**${bookTitle}**\n${content}\n-------------------------------`
+                })
+                    .then(r => {
+                        setContent('');
+                        handleClose()
+                        setSuccess(true);
+                    })
+                    .catch(error => {
+                        console.log(error)
+                    })
             })
             .catch(err => {
                 console.log(err)
