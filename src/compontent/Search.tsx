@@ -163,7 +163,6 @@ function _Search(props: { user: any; }) {
                 </Modal.Body>
                 <Modal.Footer>
                     <Button variant="secondary" onClick={() => setViewSummaryModal(false)}>Close</Button>
-                    <Button style={{ backgroundColor: "#6c63ff" }} type="submit">Post Summary</Button>
                 </Modal.Footer>
             </Modal>
 
