@@ -111,6 +111,7 @@ function LoginView() {
                         </Form.Group>
                         <div className="text-right">
                             <SignInWithGoogle />
+                            <SignInWithTwitter />
                             <Button variant="primary" type="submit" style={{ backgroundColor: "#6c63ff" }}>
                                 {formType}
                             </Button>
@@ -131,6 +132,23 @@ function LoginView() {
                 </Col>
             </Row>
         </Container>
+    )
+}
+
+function SignInWithTwitter() {
+    const auth = firebase.auth()
+    const signInWithTwitter = () => {
+        const provider = new firebase.auth.TwitterAuthProvider();
+        auth.signInWithPopup(provider)
+        .then(r => {
+            console.log(r)
+            return (<Redirect to="./feed" />)
+        })
+        .catch(e => console.log(e))
+    }
+
+    return (
+        <Button onClick={signInWithTwitter} className="mr-sm-2" style={{ backgroundColor: "#6c63ff" }}>Login with Twitter</Button>
     )
 }
 
