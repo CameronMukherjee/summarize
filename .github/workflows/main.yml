@@ -27,5 +27,5 @@ jobs:
 
     - name: Test Endpoints
       uses: stefanoeb/jest-action@1.0.3
-      # with:
-      #   jestArgs: src/tests/user.test.js
+      with:
+        jestArgs: src/tests/user.test.js
