@@ -21,6 +21,12 @@ jobs:
     steps:
       # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
       - uses: actions/checkout@v2
+
+      - name: Go to Functions
+        run: cd functions
+
+      - name: Run Jest Testing
+        run: npm run test
           
-      - name: Run Jest
-        uses: stefanoeb/jest-action@1.0.4
+      # - name: Run Jest
+      #   uses: stefanoeb/jest-action@1.0.4
