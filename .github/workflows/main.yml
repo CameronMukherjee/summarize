@@ -23,9 +23,9 @@ jobs:
     - name: Test Summaries Endpoint
       uses: stefanoeb/jest-action@1.0.3
       with:
-        jestArgs: ../functions/src/tests/summary.test.js
+        jestArgs: src/tests/summary.test.js
 
     - name: Test User Endpoint
       uses: stefanoeb/jest-action@1.0.3
       with:
-        jestArgs: ../functions/src/tests/user.test.js
+        jestArgs: src/tests/user.test.js
