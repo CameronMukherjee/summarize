@@ -21,7 +21,7 @@ jobs:
     steps:
     - uses: actions/checkout@v1
 
-    - name: Test Endpoints
+    - name: Test All Endpoints
       uses: stefanoeb/jest-action@1.0.3
       with:
         jestArgs: --passWithNoTests
