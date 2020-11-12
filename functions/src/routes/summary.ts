@@ -179,7 +179,7 @@ router.delete('/likes', (req: express.Request, res: express.Response) => {
         .then(() => {
             return res.status(200).json({
                 message: `Successfully deleted like from summary: ${req.body.summaryID}`
-            }); //TODO: Test
+            });
         })
         .catch((e) => {
             return res.status(500).json({ error: e });
