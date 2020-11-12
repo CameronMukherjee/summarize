@@ -20,12 +20,8 @@ jobs:
     # Steps represent a sequence of tasks that will be executed as part of the job
     steps:
     - uses: actions/checkout@v1
-    # - name: Test Summaries Endpoint
-    #   uses: stefanoeb/jest-action@1.0.3
-    #   with:
-    #     jestArgs: src/tests/summary.test.js
 
     - name: Test Endpoints
       uses: stefanoeb/jest-action@1.0.3
       with:
-        jestArgs: src/tests/user.test.js
+        jestArgs: --passWithNoTests
