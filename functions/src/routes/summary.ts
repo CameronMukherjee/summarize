@@ -48,8 +48,8 @@ router.get('/uid/:uid', (req: express.Request, res: express.Response) => {
 })
 
 /**
- * GET /summary/book/:uid
- * Returns all summaries made by a specific user.
+ * GET /summary/book/:bookID
+ * Returns all summaries made for a specific book.
  * @param {string} req.params.bookID
  */
 router.get('/book/:bookID', (req: express.Request, res: express.Response) => {
